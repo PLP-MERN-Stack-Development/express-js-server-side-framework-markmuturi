@@ -1,62 +1,212 @@
-# Express.js RESTful API Assignment
+🛒 Product Management API
 
-This assignment focuses on building a RESTful API using Express.js, implementing proper routing, middleware, and error handling.
+A simple RESTful API built with Node.js, Express, and MongoDB (Mongoose) for managing products.
+Includes authorization middleware, error handling, and request logging.
 
-## Assignment Overview
+🚀 Features
 
-You will:
-1. Set up an Express.js server
-2. Create RESTful API routes for a product resource
-3. Implement custom middleware for logging, authentication, and validation
-4. Add comprehensive error handling
-5. Develop advanced features like filtering, pagination, and search
+CRUD operations for products
 
-## Getting Started
+MongoDB + Mongoose integration
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install dependencies:
-   ```
-   npm install
-   ```
-4. Run the server:
-   ```
-   npm start
-   ```
+Custom error-handling middleware
 
-## Files Included
+Request logging middleware
 
-- `Week2-Assignment.md`: Detailed assignment instructions
-- `server.js`: Starter Express.js server file
-- `.env.example`: Example environment variables file
+Environment-based token authentication (non-JWT)
 
-## Requirements
+🧩 Tech Stack
 
-- Node.js (v18 or higher)
-- npm or yarn
-- Postman, Insomnia, or curl for API testing
+Node.js
 
-## API Endpoints
+Express.js
 
-The API will have the following endpoints:
+MongoDB / Mongoose
 
-- `GET /api/products`: Get all products
-- `GET /api/products/:id`: Get a specific product
-- `POST /api/products`: Create a new product
-- `PUT /api/products/:id`: Update a product
-- `DELETE /api/products/:id`: Delete a product
+dotenv
 
-## Submission
+uuid (optional for IDs)
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+Postman (for testing)
 
-1. Complete all the required API endpoints
-2. Implement the middleware and error handling
-3. Document your API in the README.md
-4. Include examples of requests and responses
+⚙️ Setup Instructions
+1️⃣ Clone the Repository
 
-## Resources
+2️⃣ Install Dependencies
+npm install
 
-- [Express.js Documentation](https://expressjs.com/)
-- [RESTful API Design Best Practices](https://restfulapi.net/)
-- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) 
+3️⃣ Create a .env File
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/productdb
+AUTH_TOKEN=mysecrettoken
+NODE_ENV=development
+
+4️⃣ Start the Server
+node server.js
+
+
+You should see:
+
+Server running on port 3000
+MongoDB Connected
+
+📚 API Endpoints
+Base URL
+http://localhost:3000/api/products
+
+🧾 GET / — Fetch All Products
+
+Request
+
+GET /api/products
+
+
+Response
+
+[
+  {
+    "_id": "6716b7b2f1a2c4c2a3d4",
+    "name": "Laptop",
+    "description": "High-performance laptop",
+    "price": 1200,
+    "category": "electronics",
+    "inStock": true
+  }
+]
+
+🔍 GET /:id — Fetch Product by ID
+
+Request
+
+GET /api/products/6716b7b2f1a2c4c2a3d4
+
+
+Response
+
+{
+  "_id": "6716b7b2f1a2c4c2a3d4",
+  "name": "Laptop",
+  "description": "High-performance laptop",
+  "price": 1200,
+  "category": "electronics",
+  "inStock": true
+}
+
+➕ POST / — Create Product (Protected)
+
+Headers
+
+Authorization: Bearer mysecrettoken
+
+
+Body
+
+{
+  "name": "Smartphone",
+  "description": "Latest model with 128GB storage",
+  "price": 800,
+  "category": "electronics",
+  "inStock": true
+}
+
+
+Response
+
+{
+  "_id": "6716b7b2f1a2c4c2a3d5",
+  "name": "Smartphone",
+  "description": "Latest model with 128GB storage",
+  "price": 800,
+  "category": "electronics",
+  "inStock": true
+}
+
+✏️ PUT /:id — Update Product (Protected)
+
+Headers
+
+Authorization: Bearer mysecrettoken
+
+
+Body
+
+{
+  "price": 850
+}
+
+
+Response
+
+{
+  "message": "Product updated successfully"
+}
+
+🗑️ DELETE /:id — Delete Product (Protected)
+
+Headers
+
+Authorization: Bearer mysecrettoken
+
+
+Response
+
+{
+  "message": "Product deleted successfully"
+}
+
+🧱 Middleware
+🔹 Logger Middleware
+
+Logs every request with timestamp, method, and URL.
+
+🔹 Auth Middleware
+
+Checks for a valid token in the Authorization header:
+
+Authorization: <AUTH_TOKEN>
+
+🔹 Error Handler
+
+Catches and formats errors in JSON.
+
+🧪 Testing with Postman
+
+Open Postman and create a new request collection called Product API.
+
+For protected routes, go to Headers → Add:
+
+Key: Authorization
+Value: mysecrettoken
+
+
+Test all CRUD endpoints.
+
+📁 Project Structure
+├── config/
+│   └── db.js
+├── middleware/
+│   ├── auth.js
+│   ├── errorHandler.js
+│   └── logger.js
+├── models/
+│   └── Product.js
+├── routes/
+│   └── productRoutes.js
+├── server.js
+├── .env
+└── package.json
+
+🧠 Future Improvements
+
+Replace static token with JWT authentication
+
+Add user registration & login
+
+Implement pagination and search
+
+Add validation using Joi or Zod
+
+Dockerize for deployment
+
+🧑‍💻 Author
+Mark Mwangi Muturi
