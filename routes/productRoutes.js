@@ -6,7 +6,6 @@ const authenticate = require('../middleware/auth');
 
 // Fetch all Products
 router.get("/", async (req, res, next) => {
-    res.json({ message: 'Access granted!' });
     try {
         const products = await Product.find();
         if (products.length === 0) {
@@ -22,7 +21,6 @@ router.get("/", async (req, res, next) => {
 
 // Fetch a specific product by id
 router.get("/:id", async (req, res) => {
-    res.json({ message: 'Access granted!' });
     try {
         const product = await Product.findById(req.params.id);
         if (!product) {
@@ -38,7 +36,6 @@ router.get("/:id", async (req, res) => {
 
 // Create a new product
 router.post("/", authenticate, async (req, res, next) => {
-    res.json({ message: 'Access granted!' });
     const { name, description, price, category, inStock } = req.body;
 
     try {
@@ -52,7 +49,6 @@ router.post("/", authenticate, async (req, res, next) => {
 
 // Update a product by id
 router.put("/:id", authenticate, async (req, res, next) => {
-    res.json({ message: 'Access granted!' });
     try {
         const product = await Product.findByIdAndUpdate(
             req.params.id,
@@ -72,7 +68,6 @@ router.put("/:id", authenticate, async (req, res, next) => {
 
 // Delete a product by id
 router.delete("/:id", authenticate, async (req, res) => {
-    res.json({ message: 'Access granted!' });
     try {
         const product = await Product.findByIdAndDelete(
             req.params.id,
